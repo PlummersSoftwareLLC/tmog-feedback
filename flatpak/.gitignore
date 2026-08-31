@@ -1,0 +1,6 @@
+repo/
+build-dir/
+.flatpak-builder/
+
+# proprietary upstream release, not redistributable
+TMOG-Task-Manager-Linux-x86_64.tar.gz

@@ -1,0 +1,61 @@
+app-id: com.tmog.taskmanager
+runtime: org.kde.Platform
+runtime-version: '6.10'
+sdk: org.kde.Sdk
+command: tmog-task-manager
+separate-locales: false
+
+finish-args:
+  # Qt 6 Widgets GUI
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  # Qt Network: /proc/net counters and the tmog.org licence check
+  - --share=network
+  # binary links libQt6Multimedia against libpulse
+  - --socket=pulseaudio
+  # sd_bus_open_system: services/units page, and logged-in users (replaces
+  # /var/run/utmp, which does not exist inside the sandbox).
+  #
+  # This MUST be --socket=system-bus, not --system-talk-name. --system-talk-name
+  # routes the bus through xdg-dbus-proxy, and libsystemd's sd-bus cannot speak
+  # through that proxy: sd_bus_open_system() succeeds, then every method call
+  # returns ENOTCONN while the proxy logs "Invalid message header read".
+  # (GDBus is fine through the proxy; the incompatibility is sd-bus specific.)
+  # --socket=system-bus connects directly and works, at the cost of unfiltered
+  # system bus access.
+  - --socket=system-bus
+
+modules:
+  - name: tmog-task-manager
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 bin/tmog-task-manager /app/bin/tmog-task-manager
+      - install -Dm644 share/applications/com.tmog.taskmanager.desktop
+        /app/share/applications/com.tmog.taskmanager.desktop
+      # local metainfo overrides the one in the tarball: adds the sandbox caveat
+      # and the <releases> entry appstreamcli requires
+      - install -Dm644 com.tmog.taskmanager.metainfo.xml
+        /app/share/metainfo/com.tmog.taskmanager.metainfo.xml
+      # Flatpak only exports icons named after the app ID
+      - for s in 32 48 64 128 256 512; do install -Dm644
+        "share/icons/hicolor/${s}x${s}/apps/tmog-task-manager.png"
+        "/app/share/icons/hicolor/${s}x${s}/apps/com.tmog.taskmanager.png"; done
+      - desktop-file-edit --set-icon=com.tmog.taskmanager
+        --set-key=StartupWMClass --set-value=tmog-task-manager
+        /app/share/applications/com.tmog.taskmanager.desktop
+      - install -Dm644 -t /app/share/doc/tmog share/doc/tmog/LICENSE.txt
+        share/doc/tmog/THIRD_PARTY_NOTICES.md
+        share/doc/tmog/Fluent-System-Icons-LICENSE.txt
+        share/doc/tmog/Michroma-OFL.txt share/doc/tmog/Selawik-OFL.txt
+    sources:
+      # Not redistributable, so not in this repo: fetch the release from
+      # https://www.tmog.org/ and place it beside this manifest.
+      # There is no public upstream URL to use for `url:` instead.
+      - type: archive
+        path: TMOG-Task-Manager-Linux-x86_64.tar.gz
+        sha256: 4d319d3d27f513e83801daeec8eb64cb78ddec1f6483bbe90d57d11e607af39d
+        strip-components: 1
+      - type: file
+        path: com.tmog.taskmanager.metainfo.xml

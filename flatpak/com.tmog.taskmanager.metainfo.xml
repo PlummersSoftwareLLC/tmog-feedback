@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.tmog.taskmanager</id>
+  <name>Task Manager TMOG</name>
+  <summary>Native system monitor and task manager</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LicenseRef-proprietary</project_license>
+  <developer id="com.plummerssoftwarellc">
+    <name>Plummer's Software LLC</name>
+  </developer>
+  <description>
+    <p>
+      Task Manager TMOG is a native system monitor with dedicated Windows,
+      macOS, and Linux clients sharing a common C++ core. The Linux client
+      is built with Qt 6 Widgets and does not embed a browser runtime.
+    </p>
+    <p>
+      Note on this Flatpak build: Flatpak always runs applications in their own
+      PID namespace with a private /proc, so the process list shows only the
+      application's own processes and cannot end or reprioritise processes
+      belonging to the rest of the system. All system-wide readings are
+      unaffected and reflect the real machine: CPU, memory, disk activity,
+      network throughput, sensors, package power, battery and CPU frequency.
+      Services and logged-in sessions are read over the systemd and logind
+      D-Bus interfaces.
+    </p>
+  </description>
+  <launchable type="desktop-id">com.tmog.taskmanager.desktop</launchable>
+  <url type="homepage">https://github.com/PlummersSoftwareLLC/TMOG</url>
+  <provides>
+    <binary>tmog-task-manager</binary>
+  </provides>
+  <releases>
+    <release version="0.1.1" date="2025-08-22"/>
+  </releases>
+  <content_rating type="oars-1.1"/>
+</component>
