@@ -31,14 +31,14 @@ body:
     id: os-version
     attributes:
       label: Operating-system version
-      placeholder: "macOS 15.6 or Windows 11 24H2"
+      placeholder: "macOS 15.6, Windows 11 24H2, or Ubuntu 24.04"
     validations:
       required: true
   - type: input
     id: hardware
     attributes:
       label: Hardware
-      description: Mac model and chip, or PC CPU/GPU, when relevant.
+      description: Mac model and chip, or Windows/Linux PC CPU/GPU, when relevant.
       placeholder: "MacBook Pro, Apple M4 Max"
   - type: textarea
     id: problem
@@ -88,4 +88,3 @@ body:
           required: true
         - label: I removed secrets and unnecessary personal information from this public report.
           required: true
-

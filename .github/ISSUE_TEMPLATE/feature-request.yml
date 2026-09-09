@@ -17,6 +17,7 @@ body:
         - Both macOS and Windows
         - macOS
         - Windows
+        - Linux
     validations:
       required: true
   - type: textarea
