@@ -14,7 +14,7 @@ body:
     attributes:
       label: Platform
       options:
-        - Both macOS and Windows
+        - All platforms
         - macOS
         - Windows
         - Linux
