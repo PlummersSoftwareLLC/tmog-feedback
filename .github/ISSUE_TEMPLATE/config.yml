@@ -1,9 +1,11 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Ask a question or share general feedback
+    url: https://github.com/PlummersSoftwareLLC/tmog-feedback/discussions
+    about: For questions, ideas and feedback that are not a bug report or a feature request.
   - name: Report a security vulnerability privately
-    url: https://github.com/davepl/tmog-feedback/security/advisories/new
+    url: https://github.com/PlummersSoftwareLLC/tmog-feedback/security/advisories/new
     about: Do not disclose security vulnerabilities in a public issue.
   - name: Download TMOG
-    url: https://www.tmog.org/#download
-    about: Get the current signed and notarized beta release.
-
+    url: https://www.tmog.org/#platforms
+    about: Get the current release for Windows, macOS and Linux.
